@@ -11,6 +11,7 @@ class SudokuBoard():
         self.board_fen = "1ee24eeee/24e8e59e3/eee7e12e4/4e9158ee6/7e1ee9e4e/526eeee9e/e125eeeee/eeee37162/6eeeee5e8"
     def __init__(self, FEN):
         self.board_fen = FEN
+        
     def Show(self):
         lines = self.board_fen.split('/')
         line_index=0
@@ -21,11 +22,6 @@ class SudokuBoard():
             print("|"+newline[0:3]+"|"+newline[3:6]+"|"+newline[6:9]+"|")
             line_index=line_index+1
         print('|---+---+---|')
-
-
-    def __iter__(self):
-            self.array_idx = 0
-            return self
 
     def items(self, showoption=ItemsShowOption.ShowAll):
         output = []
