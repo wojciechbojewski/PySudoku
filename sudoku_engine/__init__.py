@@ -1,5 +1,10 @@
-from email import iterators
+#from email import iterators
+import enum
 
+class ItemsShowOption(enum.Enum):
+    ShowAll = 1,
+    EmptyOnly = 2
+    SkipEmpty = 3
 
 class SudokuBoard():
     def __init__(self):
@@ -22,58 +27,61 @@ class SudokuBoard():
             self.array_idx = 0
             return self
 
-    def items(self, skipempty=False):
+    def items(self, showoption=ItemsShowOption.ShowAll):
         output = []
         tmp = self.board_fen.split("/")
         for i in range(81):
             row = i // 9
             column = i % 9
             value = (tmp[row])[column]
-            if 0<= row <=2 and 0<= column <=2: 
-                box = 1
-            elif 0<= row <=2 and 3<= column <=5: 
-                box = 2
-            elif 0<= row <=2 and 6<= column <=8: 
-                box = 3
-            elif 3<= row <=5 and 0<= column <=2: 
-                box = 4
-            elif 3<= row <=5 and 3<= column <=5: 
-                box = 5
-            elif 3<= row <=5 and 6<= column <=8: 
-                box = 6
-            elif 6<= row <=8 and 0<= column <=2: 
-                box = 7
-            elif 6<= row <=8 and 3<= column <=5: 
-                box = 8
-            elif 6<= row <=8 and 6<= column <=8: 
-                box = 9
+
+            if value=='e' and showoption==ItemsShowOption.SkipEmpty:
+                next
+            elif value!='e' and showoption==ItemsShowOption.EmptyOnly:
+                next
             else:
-                0
-            if value=='e' and skipempty==True:
-                pass
-            else:
+                if 0<= row <=2 and 0<= column <=2: 
+                    box = 1
+                elif 0<= row <=2 and 3<= column <=5: 
+                    box = 2
+                elif 0<= row <=2 and 6<= column <=8: 
+                    box = 3
+                elif 3<= row <=5 and 0<= column <=2: 
+                    box = 4
+                elif 3<= row <=5 and 3<= column <=5: 
+                    box = 5
+                elif 3<= row <=5 and 6<= column <=8: 
+                    box = 6
+                elif 6<= row <=8 and 0<= column <=2: 
+                    box = 7
+                elif 6<= row <=8 and 3<= column <=5: 
+                    box = 8
+                elif 6<= row <=8 and 6<= column <=8: 
+                    box = 9
+                else:
+                    0
                 output.append({'val':value, 'row':row+1, 'col':column+1, 'box':box})
         return output
 
-    def row(self, ROW, skipempty=False):
+    def row(self, ROW, showoption=ItemsShowOption.ShowAll):
         output = []
-        for item in self.items(skipempty):
+        for item in self.items(showoption):
             if item['row'] == ROW:
                 output.append(item)
         return output
 
-    def column(self, COLUMN, skipempty=False):
+    def column(self, COLUMN, showoption=ItemsShowOption.ShowAll):
         output = []
-        for item in self.items(skipempty):
+        for item in self.items(showoption):
             #print(item)
             if item['col'] == COLUMN:
                 output.append(item)
         return output
 
 
-    def box(self, BOX, skipempty=False):
+    def box(self, BOX, showoption=ItemsShowOption.ShowAll):
         output = []
-        for item in self.items(skipempty):
+        for item in self.items(showoption):
             #print(item)
             if item['box'] == BOX:
                 output.append(item)
