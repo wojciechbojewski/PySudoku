@@ -23,39 +23,42 @@ class SudokuBoard():
             line_index=line_index+1
         print('|---+---+---|')
 
+    def calculate_box(self,ROW, COL):
+        output = 0
+        if 1<= ROW <=3 and 1<= COL <=3: 
+            output = 1
+        elif 1<= ROW <=3 and 4<= COL <=6: 
+            output = 2
+        elif 1<= ROW <=3 and 7<= COL <=9: 
+            output = 3
+        elif 4<= ROW <=6 and 1<= COL <=3: 
+            output = 4
+        elif 4<= ROW <=6 and 4<= COL <=6: 
+            output = 5
+        elif 4<= ROW <=6 and 7<= COL <=9: 
+            output = 6
+        elif 7<= ROW <=9 and 1<= COL <=3: 
+            output = 7
+        elif 7<= ROW <=9 and 4<= COL <=6: 
+            output = 8
+        elif 7<= ROW <=9 and 7<= COL <=9: 
+            output = 9
+        else:
+            output = 0
+        return output
     def items(self, showoption=ItemsShowOption.ShowAll):
         output = []
         tmp = self.board_fen.split("/")
         for i in range(81):
-            row = i // 9
-            column = i % 9
+            row = (i // 9)
+            column = (i % 9)
             value = (tmp[row])[column]
-
             if value=='e' and showoption==ItemsShowOption.SkipEmpty:
                 next
             elif value!='e' and showoption==ItemsShowOption.EmptyOnly:
                 next
             else:
-                if 0<= row <=2 and 0<= column <=2: 
-                    box = 1
-                elif 0<= row <=2 and 3<= column <=5: 
-                    box = 2
-                elif 0<= row <=2 and 6<= column <=8: 
-                    box = 3
-                elif 3<= row <=5 and 0<= column <=2: 
-                    box = 4
-                elif 3<= row <=5 and 3<= column <=5: 
-                    box = 5
-                elif 3<= row <=5 and 6<= column <=8: 
-                    box = 6
-                elif 6<= row <=8 and 0<= column <=2: 
-                    box = 7
-                elif 6<= row <=8 and 3<= column <=5: 
-                    box = 8
-                elif 6<= row <=8 and 6<= column <=8: 
-                    box = 9
-                else:
-                    0
+                box = self.calculate_box(row+1, column+1)
                 output.append({'val':value, 'row':row+1, 'col':column+1, 'box':box})
         return output
 
@@ -83,3 +86,12 @@ class SudokuBoard():
                 output.append(item)
         return output
 
+    def allValidDigits(self, ROW, COL):
+        column_digits = set({ x['val'] for x in self.column(COL, showoption=ItemsShowOption.SkipEmpty) })
+        row_digits = set({ x['val'] for x in self.row(ROW, showoption=ItemsShowOption.SkipEmpty) })
+        BOX = self.calculate_box(ROW,COL)
+        box_digits = set({ x['val'] for x in self.box(BOX, showoption=ItemsShowOption.SkipEmpty) })
+        output = []
+        for x in set({'1','2','3','4','5','6','7','8','9'}).difference(column_digits | row_digits | box_digits):
+            output.append({'val': str(x), 'row': ROW, 'col': COL, 'box': BOX})
+        return output

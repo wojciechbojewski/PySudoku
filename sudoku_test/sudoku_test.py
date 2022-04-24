@@ -58,7 +58,13 @@ class SudokuTestBoard(unittest.TestCase):
         ]
         self.assertEqual(expected, result)
 
-
+    def test_all_valid_digits(self):
+        sudoku = se.SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
+        result = sudoku.allValidDigits(5, 5)
+        expected = [
+            {'val': '5', 'row': 5, 'col': 5, 'box': 5}
+        ]
+        self.assertEqual(expected, result)
 
 
 
