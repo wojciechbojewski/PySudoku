@@ -95,3 +95,13 @@ class SudokuBoard():
         for x in set({'1','2','3','4','5','6','7','8','9'}).difference(column_digits | row_digits | box_digits):
             output.append({'val': str(x), 'row': ROW, 'col': COL, 'box': BOX})
         return output
+
+    def setDigit(self, ROW, COL, val):
+        BOX = self.calculate_box(ROW,COL)
+        if {'val':str(val), 'row':ROW, 'col':COL, 'box':BOX } in  self.allValidDigits(ROW, COL):
+            index = 10*(ROW-1)+(COL-1)          
+            new_fen = self.board_fen[0:index] + f'{val}' + self.board_fen[index+1:]
+            self.board_fen = new_fen
+            return {'val':str(val), 'row':ROW, 'col':COL, 'box':BOX }
+        else:
+            raise ValueError(f"You cannot put {val} into ({ROW},{COL})")
