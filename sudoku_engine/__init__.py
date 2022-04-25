@@ -97,7 +97,7 @@ class SudokuBoard():
         return output
 
     def setDigit(self, ROW, COL, val):
-        BOX = self.calculate_box(ROW,COL)
+        BOX = self.calculate_box(ROW,COL)       
         if {'val':str(val), 'row':ROW, 'col':COL, 'box':BOX } in  self.allValidDigits(ROW, COL):
             index = 10*(ROW-1)+(COL-1)          
             new_fen = self.board_fen[0:index] + f'{val}' + self.board_fen[index+1:]
