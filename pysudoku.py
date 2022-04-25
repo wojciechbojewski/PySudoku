@@ -11,8 +11,6 @@ pygame.display.set_caption(config["title"])
 screen = pygame.display.set_mode((config["shape"]["width"], config["shape"]["height"]))
 picture = pygame.image.load(config["background"])
 screen.blit(pygame.transform.scale(picture, (config["shape"]["width"], config["shape"]["height"])), (0, 0))
-pygame.display.flip()
-
 
 def button(screen, label, enable, x, y ):
     font = pygame.font.SysFont('calibri.ttf', 50)
