@@ -36,6 +36,6 @@ class TButton():
         screen.blit(img, (self._x+10, self._y+10))  
 
     def isactive(self, x, y):
-        if (self._x) <= x <= (self._x)+23*len(self._label) and (self._y) <= y <= (self._y)+55:
+        if (self._x) <= x <= (self._x)+23*len(self._label)+10 and (self._y) <= y <= (self._y)+55:
             return 1
         return 0
