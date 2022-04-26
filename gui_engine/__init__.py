@@ -1,12 +1,5 @@
 import pygame
 
-class GameParameters(object):
-    _instance = None
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super(GameParameters, cls).__new__(cls)
-        return cls._instance
-
 class TButton():
     def __init__(self):
         self._enable = 0
