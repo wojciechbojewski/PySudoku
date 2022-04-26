@@ -6,19 +6,22 @@
         "btnEasy": {
             "type":"button",
             "label":"Easy",
-            "enable":"1",
+            "enable":1,
+            "visible":1,
             "xy":{ "x":30, "y": 420}
         },
         "btnMedium":{
             "type":"button",
             "label":"Medium",
-            "enable":"0",
+            "enable":0,
+            "visible":1,
             "xy":{ "x":140, "y": 420}
         },
         "btnHard":{
             "type":"button",
             "label":"Hard",
-            "enable":"0",
+            "enable":0,
+            "visible":1,
             "xy":{ "x":295, "y": 420}
         }
     }
