@@ -1,12 +1,6 @@
-#from email import iterators
-import enum
+from Engine.ItemsShowOption import ItemsShowOption
 
-class ItemsShowOption(enum.Enum):
-    ShowAll = 1,
-    EmptyOnly = 2
-    SkipEmpty = 3
-
-class SudokuBoard():
+class SudokuBoard:
     def __init__(self):
         self.board_fen = "1ee24eeee/24e8e59e3/eee7e12e4/4e9158ee6/7e1ee9e4e/526eeee9e/e125eeeee/eeee37162/6eeeee5e8"
     def __init__(self, FEN):

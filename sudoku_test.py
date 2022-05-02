@@ -1,10 +1,11 @@
 import unittest
-import sudoku_engine as se
 
 class SudokuTestBoard(unittest.TestCase):
     def test_first_box_skipempty(self):
-        sudoku = se.SudokuBoard("1ee000000/24e000000/eee000000/4e9000000/7e1000000/526000000/e12000000/eee000000/6ee000000")
-        result = sudoku.box(1, showoption=se.ItemsShowOption.SkipEmpty)
+        from Engine.SudokuBoard import SudokuBoard
+        from Engine.ItemsShowOption import ItemsShowOption
+        sudoku = SudokuBoard("1ee000000/24e000000/eee000000/4e9000000/7e1000000/526000000/e12000000/eee000000/6ee000000")
+        result = sudoku.box(1, showoption=ItemsShowOption.SkipEmpty)
         expected = [
             {'val': '1', 'row': 1, 'col': 1, 'box': 1},
             {'val': '2', 'row': 2, 'col': 1, 'box': 1},
@@ -14,8 +15,10 @@ class SudokuTestBoard(unittest.TestCase):
 
 
     def test_first_box_emptyonly(self):
-        sudoku = se.SudokuBoard("1ee000000/24e000000/eee000000/4e9000000/7e1000000/526000000/e12000000/eee000000/6ee000000")
-        result = sudoku.box(1, showoption=se.ItemsShowOption.EmptyOnly)
+        from Engine.SudokuBoard import SudokuBoard
+        from Engine.ItemsShowOption import ItemsShowOption
+        sudoku = SudokuBoard("1ee000000/24e000000/eee000000/4e9000000/7e1000000/526000000/e12000000/eee000000/6ee000000")
+        result = sudoku.box(1, showoption=ItemsShowOption.EmptyOnly)
         expected = [
             {'val': 'e', 'row': 1, 'col': 2, 'box': 1},
             {'val': 'e', 'row': 1, 'col': 3, 'box': 1},
@@ -27,7 +30,8 @@ class SudokuTestBoard(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_seventh_row(self):
-        sudoku = se.SudokuBoard("eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/777777777/eeeeeeeee/eeeeeeeee")
+        from Engine.SudokuBoard import SudokuBoard
+        sudoku = SudokuBoard("eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/eeeeeeeee/777777777/eeeeeeeee/eeeeeeeee")
         result = sudoku.row(7)
         expected = [
             {'val': '7', 'row': 7, 'col': 1, 'box': 7},
@@ -43,7 +47,8 @@ class SudokuTestBoard(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_last_column(self):
-        sudoku = se.SudokuBoard("eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9")
+        from Engine.SudokuBoard import SudokuBoard
+        sudoku = SudokuBoard("eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9/eeeeeeee9")
         result = sudoku.column(9)
         expected = [
             {'val': '9', 'row': 1, 'col': 9, 'box': 3},
@@ -59,7 +64,8 @@ class SudokuTestBoard(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_all_valid_digits(self):
-        sudoku = se.SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
+        from Engine.SudokuBoard import SudokuBoard
+        sudoku = SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
         result = sudoku.allValidDigits(5, 5)
         expected = [
             {'val': '5', 'row': 5, 'col': 5, 'box': 5}
@@ -67,19 +73,23 @@ class SudokuTestBoard(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_setDigit_OK_1(self):
-        sudoku = se.SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
+        from Engine.SudokuBoard import SudokuBoard
+        sudoku = SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
         result = sudoku.setDigit(5, 5, 5)
         expected = {'val': '5', 'row': 5, 'col': 5, 'box': 5}
         self.assertEqual(expected, result)
 
     def test_setDigit_OK_2(self):
-        sudoku = se.SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
+        from Engine.SudokuBoard import SudokuBoard
+        from Engine.ItemsShowOption import ItemsShowOption
+        sudoku = SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
         new_digit = sudoku.setDigit(5, 5, 5)
         new_fen = f"eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eee{new_digit['val']}eee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee"
         self.assertEqual(new_fen, sudoku.board_fen)
 
     def test_setDigit_fail(self):
-        sudoku = se.SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
+        from Engine.SudokuBoard import SudokuBoard
+        sudoku = SudokuBoard("eeee8eeee/eeeeeeeee/eeeeeeeee/eee1e2eee/6eeeeeee7/eee3e4eee/eeeeeeeee/eeeeeeeee/eeee9eeee")
         with self.assertRaises(ValueError):
             for x in [1,2,3,4,6,7,8,9]:
                 sudoku.setDigit(5, 5, x)
