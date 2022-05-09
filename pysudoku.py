@@ -1,14 +1,10 @@
-import pygame
+from PySudokuEngine.Application import Application
 
-pygame.init()
-screen = pygame.display.set_mode((640, 480), 0, 32)
+if __name__=="__main__":
+    with Application() as app:
+        app.setCaption('PyGame v0.3')
+        app.run()
 
-running = True
-while running:
-    for event in pygame.event.get():
-        print(event)
-        if event.type == pygame.QUIT:
-            running = False
-pygame.quit()
-quit()
+
+
 
