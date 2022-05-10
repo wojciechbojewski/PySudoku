@@ -3,7 +3,7 @@ import pygame
 class Application:
     def __init__(self):
         pygame.init()
-        screen = pygame.display.set_mode((640, 480), 0, 32)
+        self._display = pygame.display.set_mode((640, 480), 0, 32)
 
     def setCaption(self, title):
         pygame.display.set_caption(title)
@@ -21,4 +21,3 @@ class Application:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pygame.quit()
-        quit()
